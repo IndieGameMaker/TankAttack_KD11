@@ -18,6 +18,6 @@ public class Turret : MonoBehaviour
     {
         // 메인 카메라에서 레이케스트를 발사
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * Mathf.Infinity, Color.green);
+        Debug.DrawRay(ray.origin, ray.direction * 100.0f, Color.green);
     }
 }
