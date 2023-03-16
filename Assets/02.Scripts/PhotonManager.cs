@@ -74,5 +74,4 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
 
     #endregion
-
 }
