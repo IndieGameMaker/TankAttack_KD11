@@ -18,6 +18,9 @@ public class TankCtrl : MonoBehaviour
     [SerializeField] private float moveSpeed = 50.0f;
     [SerializeField] private float turnSpeed = 100.0f;
 
+    public GameObject cannonPrefab;
+    public Transform firePos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +43,11 @@ public class TankCtrl : MonoBehaviour
         {
             tr.Translate(Vector3.forward * Time.deltaTime * v * moveSpeed);
             tr.Rotate(Vector3.up * Time.deltaTime * h * turnSpeed);
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Instantiate(cannonPrefab, firePos.position, firePos.rotation);
+            }
         }
     }
 }
