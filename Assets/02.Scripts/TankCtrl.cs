@@ -11,6 +11,7 @@ public class TankCtrl : MonoBehaviour
     private Rigidbody rb;
     private PhotonView pv;
     private CinemachineVirtualCamera cvc;
+    private AudioSource audio;
 
     private float v => Input.GetAxis("Vertical");
     private float h => Input.GetAxis("Horizontal");
@@ -20,6 +21,7 @@ public class TankCtrl : MonoBehaviour
 
     public GameObject cannonPrefab;
     public Transform firePos;
+    public AudioClip fireSfx;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,7 @@ public class TankCtrl : MonoBehaviour
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         pv = GetComponent<PhotonView>();
+        audio = GetComponent<AudioSource>();
         cvc = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
 
         if (pv.IsMine == true)
@@ -46,8 +49,16 @@ public class TankCtrl : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                Instantiate(cannonPrefab, firePos.position, firePos.rotation);
+                //Fire();
+                pv.RPC("Fire", RpcTarget.AllViaServer);
             }
         }
+    }
+
+    [PunRPC]
+    void Fire()
+    {
+        audio.PlayOneShot(fireSfx, 0.8f);
+        Instantiate(cannonPrefab, firePos.position, firePos.rotation);
     }
 }
