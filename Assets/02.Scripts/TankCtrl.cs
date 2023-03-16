@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class TankCtrl : MonoBehaviour
 {
     private Transform tr;
     private Rigidbody rb;
+    private PhotonView pv;
+    private CinemachineVirtualCamera cvc;
 
     private float v => Input.GetAxis("Vertical");
     private float h => Input.GetAxis("Horizontal");
@@ -18,12 +23,23 @@ public class TankCtrl : MonoBehaviour
     {
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
+        pv = GetComponent<PhotonView>();
+        cvc = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+
+        if (pv.IsMine == true)
+        {
+            cvc.Follow = tr;
+            cvc.LookAt = tr;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        tr.Translate(Vector3.forward * Time.deltaTime * v * moveSpeed);
-        tr.Rotate(Vector3.up * Time.deltaTime * h * turnSpeed);
+        if (pv.IsMine)
+        {
+            tr.Translate(Vector3.forward * Time.deltaTime * v * moveSpeed);
+            tr.Rotate(Vector3.up * Time.deltaTime * h * turnSpeed);
+        }
     }
 }
