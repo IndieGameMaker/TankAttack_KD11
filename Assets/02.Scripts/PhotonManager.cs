@@ -71,7 +71,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("방 생성 완료 및 방 입장");
 
-        PhotonNetwork.Instantiate("Tank", new Vector3(0, 5.0f, 0), Quaternion.identity, 0);
+        //PhotonNetwork.Instantiate("Tank", new Vector3(0, 5.0f, 0), Quaternion.identity, 0);
+        // 방장만이 씬을 로드
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("BattleField");
+        }
     }
 
 
