@@ -30,4 +30,23 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     }
 
+    #region 포톤_콜백_함수
+    // 포톤 클라우드에 접속완료했을 때 호출되는 콜백
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("접속 완료!");
+
+        // 무작위 룸으로 접속 시도
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+    // 무작위 롬 접속 시도 실패시 호출되는 콜백
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log($"룸 접속 실패 {returnCode}, msg = {message}");
+    }
+
+
+    #endregion
+
 }
