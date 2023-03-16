@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a788a9a10448a4fe9a526b86a3a46dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nickName: Zackiller
 --- !u!4 &74721625
 Transform:
   m_ObjectHideFlags: 0
