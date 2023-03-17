@@ -327,6 +327,7 @@ MonoBehaviour:
   exitButton: {fileID: 491127522}
   chatListText: {fileID: 2133342680}
   chatMsgIF: {fileID: 1602015720}
+  playerCountText: {fileID: 1402424393}
 --- !u!114 &402828444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,8 +387,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -23.3, y: -0.000020504}
-  m_SizeDelta: {x: 92.2339, y: 23.7829}
+  m_AnchoredPosition: {x: -36.95199, y: -0.000020504}
+  m_SizeDelta: {x: 64.9299, y: 23.7829}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &491127522
 MonoBehaviour:
@@ -997,8 +998,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 51.4, y: 0.00001359}
-  m_SizeDelta: {x: 47.9545, y: 27.255}
+  m_AnchoredPosition: {x: 37.689, y: 0.00001359}
+  m_SizeDelta: {x: 75.377, y: 27.255}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1402424393
 MonoBehaviour:
@@ -1047,8 +1048,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
