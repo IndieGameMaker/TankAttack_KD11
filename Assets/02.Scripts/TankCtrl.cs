@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 public class TankCtrl : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class TankCtrl : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 50.0f;
     [SerializeField] private float turnSpeed = 100.0f;
+    [SerializeField] private TMP_Text nickNameText;
 
     public GameObject cannonPrefab;
     public Transform firePos;
@@ -33,6 +35,8 @@ public class TankCtrl : MonoBehaviour
         cvc = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
 
         rb.centerOfMass = new Vector3(0, -5.0f, 0);
+
+        nickNameText.text = pv.Owner.NickName;
 
 
         if (pv.IsMine == true)
