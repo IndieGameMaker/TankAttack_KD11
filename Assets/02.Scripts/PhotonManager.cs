@@ -14,6 +14,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     // 유저명
     [SerializeField] private string nickName = "Zackiller";
 
+    private string userId;
+
     [Header("UI")]
     [SerializeField] private TMP_InputField nickNameIF;
 
@@ -37,12 +39,39 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        // 닉네임을 로드
+        string defaultNickName = $"USER_{UnityEngine.Random.Range(0, 1000):0000}";
+        userId = PlayerPrefs.GetString("USER_ID", defaultNickName);
+
+        // Input Field에 닉네임 설정
+        nickNameIF.text = userId;
+
+        // 버튼 이벤트 연결
         loginButton.onClick.AddListener(() => OnLoginButtonClick());
     }
 
     private void OnLoginButtonClick()
     {
+        // 닉네임 입력여부를 확인
+        SetNickName();
+
         PhotonNetwork.JoinRandomRoom();
+    }
+
+    void SetNickName()
+    {
+        if (string.IsNullOrEmpty(nickNameIF.text))
+        {
+            userId = $"USER_{UnityEngine.Random.Range(0, 1000):0000}";
+            nickNameIF.text = userId;
+        }
+
+        userId = nickNameIF.text;
+
+        // PlayerPrefs
+        PlayerPrefs.SetString("USER_ID", userId);
+
+        PhotonNetwork.NickName = userId;
     }
 
     #region 포톤_콜백_함수

@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nickName: Zackiller
+  nickNameIF: {fileID: 971261276}
   loginButton: {fileID: 1439051803}
 --- !u!4 &74721625
 Transform:
