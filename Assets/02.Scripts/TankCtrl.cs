@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class TankCtrl : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class TankCtrl : MonoBehaviour
     public Transform firePos;
     public AudioClip fireSfx;
 
+    private Renderer[] renderers;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +43,9 @@ public class TankCtrl : MonoBehaviour
         cvc = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
 
         rb.centerOfMass = new Vector3(0, -5.0f, 0);
+
+        // 탱크의 모든 랜더러 컴포넌트 추출
+        renderers = GetComponentsInChildren<Renderer>();
 
         nickNameText.text = pv.Owner.NickName;
 
@@ -89,7 +95,41 @@ public class TankCtrl : MonoBehaviour
             if (currHp <= 0.0f)
             {
                 Debug.Log(pv.Owner.NickName + " Die!");
+                TankDestroy();
             }
         }
     }
+
+    private void TankDestroy()
+    {
+        SetVisible(false);
+        Invoke("RespawnTank", 3.0f);
+    }
+
+    private void RespawnTank()
+    {
+        // HP 초기화
+        currHp = initHp;
+        hpBar.fillAmount = 1.0f;
+
+        // 랜덤한 위치로 이동처리 
+
+        // 탱크를 활성화
+        SetVisible(true);
+    }
+
+    private void SetVisible(bool isVisible)
+    {
+
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].enabled = isVisible;
+        }
+
+        tr.Find("Canvas").gameObject.SetActive(isVisible);
+        //tr.Find("Canvas").GetComponent<Canvas>().enabled = isVisible;
+    }
+
+
+
 }
