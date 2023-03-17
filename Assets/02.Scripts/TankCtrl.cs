@@ -73,27 +73,35 @@ public class TankCtrl : MonoBehaviour
             {
                 //Fire();
                 // RPC (Remote Procedure Call)
-                pv.RPC("Fire", RpcTarget.AllViaServer);
+                pv.RPC("Fire", RpcTarget.AllViaServer, pv.Owner.ActorNumber);
             }
         }
     }
 
     [PunRPC]
-    void Fire()
+    void Fire(int shooterId)
     {
         audio.PlayOneShot(fireSfx, 0.8f);
-        Instantiate(cannonPrefab, firePos.position, firePos.rotation);
+        var obj = Instantiate(cannonPrefab, firePos.position, firePos.rotation);
+        obj.GetComponent<Cannon>().shooterId = shooterId;
     }
 
     void OnCollisionEnter(Collision coll)
     {
         if (coll.collider.CompareTag("CANNON"))
         {
+            // ActionNumber -> NickName
+            int shooterId = coll.gameObject.GetComponent<Cannon>().shooterId;
+            Player shooter = PhotonNetwork.CurrentRoom.GetPlayer(shooterId);
+
             currHp -= 20.0f;
             hpBar.fillAmount = currHp / initHp;
 
             if (currHp <= 0.0f)
             {
+                // [Jason Lee]님은 [Killer]에게 살해당했습니다.
+                string msg = $"<color=#00ff00>[{pv.Owner.NickName}]</color> is killed by <color=#ff0000>[{shooter.NickName}]</color>.";
+
                 Debug.Log(pv.Owner.NickName + " Die!");
                 TankDestroy();
             }
