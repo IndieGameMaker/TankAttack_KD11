@@ -303,6 +303,7 @@ MonoBehaviour:
   moveSpeed: 30
   turnSpeed: 100
   nickNameText: {fileID: 9122260513678195350}
+  hpBar: {fileID: 4646657813876160888}
   cannonPrefab: {fileID: 4479295240899812498, guid: bf6ad804ef0b14cedaa0ce39bcb925be, type: 3}
   firePos: {fileID: 6961927317202955989}
   fireSfx: {fileID: 8300000, guid: 18d257f6ebfdf48c196adca3f57982b5, type: 3}

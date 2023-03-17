@@ -23,6 +23,9 @@ public class TankCtrl : MonoBehaviour
     [SerializeField] private TMP_Text nickNameText;
     [SerializeField] private Image hpBar;
 
+    private float initHp = 100.0f; // 초기 생명치
+    private float currHp = 100.0f; // 현재 생명치
+
     public GameObject cannonPrefab;
     public Transform firePos;
     public AudioClip fireSfx;
@@ -45,6 +48,10 @@ public class TankCtrl : MonoBehaviour
         {
             cvc.Follow = tr;
             cvc.LookAt = tr;
+        }
+        else
+        {
+            rb.isKinematic = true;
         }
     }
 
@@ -70,5 +77,19 @@ public class TankCtrl : MonoBehaviour
     {
         audio.PlayOneShot(fireSfx, 0.8f);
         Instantiate(cannonPrefab, firePos.position, firePos.rotation);
+    }
+
+    void OnCollisionEnter(Collision coll)
+    {
+        if (coll.collider.CompareTag("CANNON"))
+        {
+            currHp -= 20.0f;
+            hpBar.fillAmount = currHp / initHp;
+
+            if (currHp <= 0.0f)
+            {
+                Debug.Log(pv.Owner.NickName + " Die!");
+            }
+        }
     }
 }
