@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
+using UnityEngine.UI;
+using System;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
@@ -11,6 +14,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     // 유저명
     [SerializeField] private string nickName = "Zackiller";
+
+    [SerializeField] private Button loginButton;
+
+
 
     void Awake()
     {
@@ -27,7 +34,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        loginButton.onClick.AddListener(() => OnLoginButtonClick());
+    }
 
+    private void OnLoginButtonClick()
+    {
+        PhotonNetwork.JoinRandomRoom();
     }
 
     #region 포톤_콜백_함수
@@ -46,7 +58,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("로비에 입장 완료!"); // 룸 목록을 전달받을 수 있는 로비에 입장완료
 
         // 무작위 룸으로 접속 시도
-        PhotonNetwork.JoinRandomRoom();
+        // PhotonNetwork.JoinRandomRoom();
     }
 
     // 무작위 롬 접속 시도 실패시 호출되는 콜백
@@ -66,6 +78,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom("My Room", ro);
     }
 
+    public override void OnCreatedRoom()
+    {
+
+    }
+
     // 룸에 입장했을 때 호출되는 콜백
     public override void OnJoinedRoom()
     {
@@ -76,6 +93,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LoadLevel("BattleField");
+
+            // PhotonNetwork.IsMessageQueueRunning = false;
+            // UnityEngine.SceneManagement.SceneManager.LoadScene("BattleField");
+            // PhotonNetwork.IsMessageQueueRunning = true;
         }
     }
 

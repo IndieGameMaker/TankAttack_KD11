@@ -32,6 +32,9 @@ public class TankCtrl : MonoBehaviour
         audio = GetComponent<AudioSource>();
         cvc = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
 
+        rb.centerOfMass = new Vector3(0, -5.0f, 0);
+
+
         if (pv.IsMine == true)
         {
             cvc.Follow = tr;
@@ -50,6 +53,7 @@ public class TankCtrl : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 //Fire();
+                // RPC (Remote Procedure Call)
                 pv.RPC("Fire", RpcTarget.AllViaServer);
             }
         }

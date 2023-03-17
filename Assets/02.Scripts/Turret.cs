@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Turret : MonoBehaviour
 {
     private Transform tr;
     private RaycastHit hit;
+    private PhotonView pv;
 
     [SerializeField] private float turnSpeed = 10.0f;
 
     void Start()
     {
         tr = GetComponent<Transform>();
+        pv = tr.root.GetComponent<PhotonView>();
+
+        this.enabled = pv.IsMine;
     }
 
     void Update()
