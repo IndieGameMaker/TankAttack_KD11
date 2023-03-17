@@ -99,10 +99,13 @@ public class TankCtrl : MonoBehaviour
 
             if (currHp <= 0.0f)
             {
-                // [Jason Lee]님은 [Killer]에게 살해당했습니다.
-                string msg = $"<color=#00ff00>[{pv.Owner.NickName}]</color> is killed by <color=#ff0000>[{shooter.NickName}]</color>.";
+                if (pv.IsMine)
+                {
+                    // [Jason Lee]님은 [Killer]에게 살해당했습니다.
+                    string msg = $"<color=#00ff00>[{pv.Owner.NickName}]</color> 님은 <color=#ff0000>[{shooter.NickName}]</color>에게 폭파됐습니다.";
+                    GameManager.instance.SendMessage2(msg);
+                }
 
-                Debug.Log(pv.Owner.NickName + " Die!");
                 TankDestroy();
             }
         }

@@ -32,8 +32,12 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PhotonNetwork.GameVersion = version;
         // 닉 네임 설정
         PhotonNetwork.NickName = nickName;
-        // Photon Cloud 접속
-        PhotonNetwork.ConnectUsingSettings();
+
+        if (PhotonNetwork.IsConnected == false)
+        {
+            // Photon Cloud 접속
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     // Start is called before the first frame update
