@@ -5,6 +5,7 @@ using Cinemachine;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.UI;
 
 public class TankCtrl : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class TankCtrl : MonoBehaviour
     [SerializeField] private float moveSpeed = 50.0f;
     [SerializeField] private float turnSpeed = 100.0f;
     [SerializeField] private TMP_Text nickNameText;
+    [SerializeField] private Image hpBar;
 
     public GameObject cannonPrefab;
     public Transform firePos;
