@@ -11,10 +11,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 {
     // 게임 버전
     [SerializeField] private const string version = "1.0";
-
     // 유저명
     [SerializeField] private string nickName = "Zackiller";
 
+    [Header("UI")]
+    [SerializeField] private TMP_InputField nickNameIF;
+
+    [Header("Button")]
     [SerializeField] private Button loginButton;
 
 
