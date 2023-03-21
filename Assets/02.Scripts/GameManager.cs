@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_Text chatListText;
     [SerializeField] private TMP_InputField chatMsgIF;
     [SerializeField] private TMP_Text playerCountText;
+    [SerializeField] private TMP_Text roomNameText;
 
     private PhotonView pv;
 
@@ -93,5 +94,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         string msg = $"{currentRoom.Name} : {currentRoom.PlayerCount}/{currentRoom.MaxPlayers}";
         playerCountText.text = msg;
+
+        roomNameText.text = currentRoom.Name;
     }
 }

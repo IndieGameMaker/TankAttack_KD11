@@ -18,11 +18,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     [Header("UI")]
     [SerializeField] private TMP_InputField nickNameIF;
+    [SerializeField] private TMP_InputField roomNameIF;
 
     [Header("Button")]
     [SerializeField] private Button loginButton;
-
-
+    [SerializeField] private Button makeRoomButton;
 
     void Awake()
     {
@@ -52,6 +52,35 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         // 버튼 이벤트 연결
         loginButton.onClick.AddListener(() => OnLoginButtonClick());
+        makeRoomButton.onClick.AddListener(() => OnMakeRoomButtonClick());
+    }
+
+    private void OnMakeRoomButtonClick()
+    {
+        // 닉네임 입력여부를 확인
+        SetNickName();
+
+        // 룸 명 입력여부 확인
+        if (string.IsNullOrEmpty(roomNameIF.text))
+        {
+            roomNameIF.text = $"ROOM_{UnityEngine.Random.Range(0, 10000):00000}";
+        }
+
+        // 룸 속성 정의
+        var ro = new RoomOptions
+        {
+            MaxPlayers = 20,
+            IsOpen = true,
+            IsVisible = true
+        };
+
+        // 룸 생성
+        PhotonNetwork.CreateRoom(roomNameIF.text, ro);
+
+        // var ro1 = new RoomOptions();
+        // ro1.MaxPlayers = 20;
+        // ro1.IsOpen = true;
+        // ro1.IsVisible = true;
     }
 
     private void OnLoginButtonClick()
@@ -136,6 +165,41 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public GameObject roomPrefab;
+    public Transform contentTr; // 차일화 시킬 부모의 Transform
+    // 룸 목록을 저장할 Dictionary 선언
+    public Dictionary<string, GameObject> roomDict = new Dictionary<string, GameObject>();
+
+    // 룸 목록이 변경될때마다 호출해주는 콜백
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        foreach (var room in roomList)
+        {
+            string roomInfo = $"{room.Name} ({room.PlayerCount}/{room.MaxPlayers})";
+
+            if (room.RemovedFromList == true) // 삭제된 룸
+            {
+                // 딕셔너리에서 룸 삭제
+            }
+            else // 새로 생성된 룸 , 변경된 룸
+            {
+                // 처음 생성된 룸 , 딕셔너리에서 검색해서 없는 경우
+                if (roomDict.ContainsKey(room.Name) == false)
+                {
+                    // 룸 프리팹 생성
+                    GameObject _room = Instantiate(roomPrefab, contentTr);
+                    // 룸 정보 생성
+
+                    // 딕셔너리에 추가
+                }
+                else // 룸 정보가 변경된 경우
+                {
+                    // 딕셔너리에서 검색 후 정보를 변경
+                }
+            }
+
+        }
+    }
 
     #endregion
 }
