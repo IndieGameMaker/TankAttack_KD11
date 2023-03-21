@@ -173,6 +173,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     // 룸 목록이 변경될때마다 호출해주는 콜백
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        GameObject tempRoom = null;
+
         foreach (var room in roomList)
         {
             string roomInfo = $"{room.Name} ({room.PlayerCount}/{room.MaxPlayers})";
@@ -188,13 +190,18 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 {
                     // 룸 프리팹 생성
                     GameObject _room = Instantiate(roomPrefab, contentTr);
-                    // 룸 정보 생성
-
+                    // 룸 정보 적용
+                    _room.GetComponent<RoomData>().RoomInfo = room;
                     // 딕셔너리에 추가
+                    roomDict.Add(room.Name, _room);
                 }
                 else // 룸 정보가 변경된 경우
                 {
                     // 딕셔너리에서 검색 후 정보를 변경
+                    if (roomDict.TryGetValue(room.Name, out tempRoom))
+                    {
+                        tempRoom.GetComponent<RoomData>().RoomInfo = room;
+                    }
                 }
             }
 
