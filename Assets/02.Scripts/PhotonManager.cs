@@ -182,6 +182,13 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             if (room.RemovedFromList == true) // 삭제된 룸
             {
                 // 딕셔너리에서 룸 삭제
+                if (roomDict.TryGetValue(room.Name, out tempRoom))
+                {
+                    // 룸 프리팹 삭제
+                    Destroy(tempRoom);
+                    // 딕셔너리에서 데이터 삭제
+                    roomDict.Remove(room.Name);
+                }
             }
             else // 새로 생성된 룸 , 변경된 룸
             {

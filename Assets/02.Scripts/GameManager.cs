@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField chatMsgIF;
     [SerializeField] private TMP_Text playerCountText;
     [SerializeField] private TMP_Text roomNameText;
+    [SerializeField] private TMP_Text playerListText;
 
     private PhotonView pv;
 
