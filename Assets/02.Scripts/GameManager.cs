@@ -93,6 +93,18 @@ public class GameManager : MonoBehaviourPunCallbacks
         // 현재 입한 룸에 대한 정보
         Room currentRoom = PhotonNetwork.CurrentRoom;
 
+        // 플레이어 리스트 표시
+        string playerList = "";
+
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            string color = (player.IsMasterClient) ? "#ff0000" : "#00ff00";
+            playerList += $"<color={color}>{player.NickName}</color>\n";
+        }
+
+        playerListText.text = playerList;
+
+        // 룸 정보
         string msg = $"{currentRoom.Name} : {currentRoom.PlayerCount}/{currentRoom.MaxPlayers}";
         playerCountText.text = msg;
 
